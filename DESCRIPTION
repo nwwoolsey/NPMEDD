@@ -1,0 +1,12 @@
+Package: NPMEDD
+Title: Non Parametric Regression for Directional responses with Linear Covariates Contaminated with Measurement Error
+Version: 0.0.0.9000
+Authors@R: 
+    person("Nicholas", "Woolsey", , "nwoolsey@email.sc.edu", role = c("aut", "cre"),
+           comment = NULL)
+Description: This package fits linear covariate data that is contaminated with measurement error to directional responses nonparametrically. The mathematical process is outlined in Woolsey and Huang (unpublished). 
+License: use_mit_license()
+Encoding: UTF-8
+Import: lpme
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
