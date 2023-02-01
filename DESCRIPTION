@@ -7,6 +7,6 @@ Authors@R:
 Description: This package fits linear covariate data that is contaminated with measurement error to directional responses nonparametrically. The mathematical process is outlined in Woolsey and Huang (unpublished). 
 License: use_mit_license()
 Encoding: UTF-8
-Import: lpme
+Imports: lpme
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
