@@ -1,0 +1,25 @@
+library(NPMEDD)
+dat<-read.csv("Enteropathy.csv")
+abundance<-dat[,2]-2*pi
+CCEAI<-dat[,1]
+abundance<-abundance[which(CCEAI<9)]
+CCEAI<-CCEAI[which(CCEAI<9)]
+g<-seq(0,8,.1)
+sigmau<-.78
+set.seed(1)
+err<-CCEAI+rnorm(length(CCEAI),0,sigmau)
+plot(err,abundance,xlim=c(0,8),ylim=c(-.4,0),xlab="CCECAI",ylab="Relative Abundance",pch=".",cex=2,main="CCECAI vs Abundance of Desulfovibrionales")
+naive<-naivebwdd(seq(.1,2,.01),err,abundance,g)$Fit
+lines(g,tru,lty=1)
+lines(g,naive,pch=0,col="red",lty=1)
+pts<-seq(1,length(g),5)
+points(g[pts],naive[pts],col="red",pch=0)
+os<-npddbw(err,abundance,seq(.3,.4,.1),"onestep",g,"normal",sigmau,500)
+lines(g,os$Fit,lty=3,col="blue")
+points(g[pts],os$Fit[pts],col="blue",pch=1)
+comp<-npddbw(err,abundance,seq(.6,.7,.1),"comp",g,"normal",sigmau,2000)
+lines(seq(0,8,.1),comp$Fit,lty=4,col="orange")
+points(g[pts],comp$Fit[pts],col="orange",pch=2)
+dec<-npddbw(err,abundance,seq(.25,.35,.1),"deconv",g,"normal",sigmau,500)
+lines(seq(0,8,.1),dec$Fit,lty=5,col="orchid4")
+points(g[pts],dec$Fit[pts],col="orchid4",pch=5)
