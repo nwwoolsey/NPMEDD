@@ -7,6 +7,15 @@ h is a chosen bandwidth, x is a linear covariate, y is a directional response, a
 \usage{
 naivedd(h, x, y, delta)
 }
+\arguments{
+\item{h}{bandwidth}
+
+\item{x}{covariated}
+
+\item{y}{responses}
+
+\item{delta}{location of regression fit}
+}
 \description{
 Fit linear covariates to directional responses nonparametrically.
 h is a chosen bandwidth, x is a linear covariate, y is a directional response, and delta is a vector of points to fit the model over.

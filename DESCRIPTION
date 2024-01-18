@@ -8,8 +8,7 @@ Description: This package fits linear covariate data that is contaminated with m
 License: use_mit_license()
 Encoding: UTF-8
 Imports:
-    lpme
-Depends:
-    lpme
+    lpme, 
+    stats
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0

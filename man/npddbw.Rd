@@ -7,6 +7,23 @@ Inputs follow the same as npregdd, except hs is a vector of potential bandwidths
 \usage{
 npddbw(x, y, hs, method, delta, error, sigmau, rep)
 }
+\arguments{
+\item{x}{covariates}
+
+\item{y}{responses}
+
+\item{hs}{list of potential bandwidths}
+
+\item{method}{"comp" for complex errors "onestep" for one step estimator or "deconv" for deconvoluting estiamtor}
+
+\item{delta}{values for the regression model to be fitted at}
+
+\item{error}{error distribution, "normal" or "laplace"}
+
+\item{sigmau}{standard deviation of the measurement error}
+
+\item{rep}{number of repetitions for monte carlo convergence of complex method}
+}
 \description{
 Uses SIMEX bandwidth selection in order to fit linear covariates with measurement error to directional responses.
 Inputs follow the same as npregdd, except hs is a vector of potential bandwidths.

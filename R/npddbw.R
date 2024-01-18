@@ -1,5 +1,13 @@
 #' Uses SIMEX bandwidth selection in order to fit linear covariates with measurement error to directional responses.
 #' Inputs follow the same as npregdd, except hs is a vector of potential bandwidths.
+#' @param x covariates
+#' @param y responses
+#' @param hs list of potential bandwidths
+#' @param method "comp" for complex errors "onestep" for one step estimator or "deconv" for deconvoluting estiamtor
+#' @param delta values for the regression model to be fitted at
+#' @param error error distribution, "normal" or "laplace"
+#' @param rep number of repetitions for monte carlo convergence of complex method
+#' @param sigmau standard deviation of the measurement error
 #' @export
 npddbw<-function(x,y,hs,method,delta,error,sigmau,rep){
   if(missing(rep)){
@@ -14,8 +22,8 @@ npddbw<-function(x,y,hs,method,delta,error,sigmau,rep){
   n<-length(x)
   CV1<-c()
   CV2<-c()
-  err1<-rnorm(n,mean=0,sd=sigmau)
-  err2<-err1+rnorm(n,mean=0,sd=sigmau)
+  err1<-stats::rnorm(n,mean=0,sd=sigmau)
+  err2<-err1+stats::rnorm(n,mean=0,sd=sigmau)
   wstar<-x+err1
   wstar2<-x+err2
   for(h in hs){
@@ -38,8 +46,8 @@ npddbw<-function(x,y,hs,method,delta,error,sigmau,rep){
     CV1<-append(CV1,cv1)
     CV2<-append(CV2,cv2)
   }
-  h1<-hs[which(CV1==min(na.omit(CV1)))]
-  h2<-hs[which(CV2==min(na.omit(CV2)))]
+  h1<-hs[which(CV1==min(stats::na.omit(CV1)))]
+  h2<-hs[which(CV2==min(stats::na.omit(CV2)))]
   out<-h1^2/h2
   hopt<-hs[which(abs(hs-out)==min(abs(hs-out)))]
   r<-npregdd(h,method,x,y,delta,error,sigmau,rep)

@@ -9,6 +9,23 @@ rep is the number of random normal imaginary errors to generate per replication 
 \usage{
 npregdd(h, method, x, y, delta, error, sigmau, rep)
 }
+\arguments{
+\item{h}{bandwidth}
+
+\item{method}{"comp" for complex errors "onestep" for one step estimator or "deconv" for deconvoluting estiamtor}
+
+\item{x}{covariates}
+
+\item{y}{responses}
+
+\item{delta}{values for the regression model to be fitted at}
+
+\item{error}{error distribution, "normal" or "laplace"}
+
+\item{sigmau}{standard deviation of the measurement error}
+
+\item{rep}{number of repetitions for monte carlo convergence of complex method}
+}
 \description{
 Fits linear covariates with measurement error to directional responses, has three different methods.
 h is bandwidth, x is linear covariates, y is directional responses, delta is a vector to fit the model over, sigmau is the standard deviation of the measurement error.

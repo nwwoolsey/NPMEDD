@@ -1,5 +1,9 @@
 #' Fit linear covariates to directional responses nonparametrically.
 #' h is a chosen bandwidth, x is a linear covariate, y is a directional response, and delta is a vector of points to fit the model over.
+#' @param h bandwidth
+#' @param x covariated
+#' @param y responses
+#' @param delta location of regression fit
 #' @export
 naivedd<-function(h,x,y,delta){#non corrected weight function
   r<-c()

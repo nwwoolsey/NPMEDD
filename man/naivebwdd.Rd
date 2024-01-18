@@ -2,12 +2,21 @@
 % Please edit documentation in R/naivebwdd.R
 \name{naivebwdd}
 \alias{naivebwdd}
-\title{Uses 5-fold cross validation in order to nonparametrically fit linear covariates to directional responses.
-hs is a vector of potential bandwidths, x is the linear covariate, y is the directional response, and delta is the points that the model will be fit over.}
+\title{Uses SIMEX bandwidth selection in order to fit linear covariates with measurement error to directional responses.
+Inputs follow the same as npregdd, except hs is a vector of potential bandwidths.}
 \usage{
 naivebwdd(hs, x, y, delta)
 }
+\arguments{
+\item{hs}{list of potential bandwidths}
+
+\item{x}{covariates}
+
+\item{y}{responses}
+
+\item{delta}{values for the regression model to be fitted at}
+}
 \description{
-Uses 5-fold cross validation in order to nonparametrically fit linear covariates to directional responses.
-hs is a vector of potential bandwidths, x is the linear covariate, y is the directional response, and delta is the points that the model will be fit over.
+Uses SIMEX bandwidth selection in order to fit linear covariates with measurement error to directional responses.
+Inputs follow the same as npregdd, except hs is a vector of potential bandwidths.
 }
