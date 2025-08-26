@@ -3,27 +3,27 @@
 #replicates for the complex error method, but that will also increase how wiggly the fit is.
 set.seed(1)
 library(lpme)
-l<-read.csv("Data/tnrcc_wind_direction_resultant.txt")
-convert<-function(x){
+l<-read.csv("Data/tnrcc_wind_direction_resultant.txt") #load data
+convert<-function(x){ #Convert to correct format using dates
   o<-as.POSIXct(l[,2],format="%H:%M")
   out<-as.integer(format(o,format="%H"))
   return(out)
 }
 time<-convert(l[,2])
 l<-l[,-(1:2)]
-direction<-matrix(l,ncol=1,nrow=1756*123)
-direction<-as.integer(l[,80])*pi/180
-timenew<-time[-which(is.na((direction)))]
-direction<-direction[-which(is.na((direction)))]
-sigmau<-2.306
-timeerr<-timenew+rnorm(length(timenew),0,sigmau)
-g<-seq(3,22,.5)
-tru<-naivebwdd(seq(.5,5,.1),timenew,direction-pi,g)
-naive<-naivebwdd(seq(1,5,.1),timeerr,direction-pi,g)
-dec<-npddbw(timeerr,direction-pi,seq(.55,.65,.01),"deconv",g,"normal",sigmau,500)
+direction<-matrix(l,ncol=1,nrow=1756*123) #put in matrtix form
+direction<-as.integer(l[,80])*pi/180 #Convert to radians
+timenew<-time[-which(is.na((direction)))] #Remove NA
+direction<-direction[-which(is.na((direction)))] #Remove NA
+sigmau<-2.306 #Extra Error
+timeerr<-timenew+rnorm(length(timenew),0,sigmau) # Contaminate
+g<-seq(3,22,.5) 
+tru<-naivebwdd(seq(.5,5,.1),timenew,direction-pi,g) #Bandwidth selection on true data
+naive<-naivebwdd(seq(1,5,.1),timeerr,direction-pi,g) #Bandwidth selection on contaminated data
+dec<-npddbw(timeerr,direction-pi,seq(.55,.65,.01),"deconv",g,"normal",sigmau,500) #Deconvoluting Kernel
 compbw<-npddbw(timeerr,direction-pi,seq(.92,.97,.01),"comp",g,"normal",sigmau,500)$h#we use a reduced number of replicates to find the optimal bandwidth to save computation time
-comp<-npregdd(compbw,"comp",timeerr,direction-pi,g,"normal",sigmau,10000)
-os<-npddbw(timeerr,direction-pi,seq(.6,.75,.01),"onestep",g,"normal",sigmau,500)
+comp<-npregdd(compbw,"comp",timeerr,direction-pi,g,"normal",sigmau,10000) #Complex estimator
+os<-npddbw(timeerr,direction-pi,seq(.6,.75,.01),"onestep",g,"normal",sigmau,500) #One Step estimator
 plot(timeerr,direction-pi,xlim=c(0,24),ylim=c(-1.7,.8),xlab="Time of Day",ylab="Wind Direction In Radians",cex=.35)
 lines(g,tru$Fit)
 lines(g,dec$Fit,lty=2,col="blue")
